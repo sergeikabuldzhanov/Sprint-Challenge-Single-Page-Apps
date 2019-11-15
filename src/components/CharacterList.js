@@ -1,16 +1,53 @@
 import React, { useEffect, useState } from "react";
+import CharacterCard from './CharacterCard';
+import axios from 'axios';
+import SearchForm from './SearchForm';
 
 export default function CharacterList() {
-  // TODO: Add useState to track data from useEffect
+  const [characters, setCharacters] = useState();
+  const [info, setInfo] = useState();
 
-  useEffect(() => {
-    // TODO: Add API Request here - must run in `useEffect`
-    //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
-  }, []);
+  function fetchCharacterList(){
+    axios.get('https://rickandmortyapi.com/api/character/')
+      .then(response=>{
+        console.log(response);
+        setCharacters(response.data.results);
+        setInfo(response.data.info);
+      })
+      .catch(error=>{
+        console.log(error);
+      });
+  }
 
-  return (
-    <section className="character-list">
-      <h2>TODO: `array.map()` over your state here!</h2>
-    </section>
-  );
+  useEffect(()=>{
+    fetchCharacterList();
+  }, [])
+
+  console.log(characters);
+  
+  function filterCharacters(object){
+    if(object.name){
+      setCharacters(
+        characters.filter(character=>character.name.includes(object.name))
+      );
+    }
+    if(object.status_select){
+      setCharacters(characters.filter(character => character.status==object.status_select));
+    }
+  };
+
+  if(!characters){
+    return <h2>Loading character list...</h2>;
+  }else{
+    return (
+      <section className="character-list">
+        <SearchForm setFilter = {filterCharacters}/>
+        {
+          characters.map(character=>{
+            return <CharacterCard character = {character} key = {character.id}/>
+          })
+        }
+      </section>
+    );
+  }
 }
