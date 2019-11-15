@@ -1,11 +1,11 @@
 import React from "react";
 import Header from "./components/Header.js";
-import {useState, useEffect} from 'react';
-import axios from 'axios';
+// import {useState, useEffect} from 'react';
+// import axios from 'axios';
 import CharacterList from './components/CharacterList';
 import LocationList from './components/LocationsList';
 import WelcomePage from './components/WelcomePage';
-import SearchForm from './components/SearchForm';
+// import SearchForm from './components/SearchForm';
 import {Route, Link, NavLink} from 'react-router-dom';
 import styled from 'styled-components';
 

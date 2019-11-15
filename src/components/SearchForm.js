@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 
 export default function SearchForm(props) {
-  const [searchState, setSearchState] = useState("");
+  const [searchState, setSearchState] = useState({
+    name: '',
+    status_select: ''
+  });
 
   function searchFormChange(event){
-    setSearchState(event.target.value);
+    setSearchState({
+      ...searchState,
+      [event.target.name]: event.target.value
+    });
   }
 
   function handleSubmit(event){
@@ -19,11 +25,23 @@ export default function SearchForm(props) {
           Search by Name:
           <input
             type="text"
-            name="search_by_name"
+            name="name"
             placeholder="Start your search here"
             onChange = {searchFormChange}
-            value = {searchState}
+            value = {searchState.name}
           />
+        </label>
+        <label>
+          Status:
+          <select
+            name="status_select"
+            onChange = {searchFormChange}
+            value = {searchState.status_select}
+          >
+            <option>Alive</option>
+            <option>Dead</option>
+            <option>unknown</option>
+          </select>
         </label>
         <input type = "submit"/>
       </form>

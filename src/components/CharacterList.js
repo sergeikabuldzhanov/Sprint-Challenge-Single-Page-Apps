@@ -25,10 +25,13 @@ export default function CharacterList() {
 
   console.log(characters);
   
-  function filterCharacters(string){
-    setCharacters(
-      characters.filter(character=>character.name.includes(string))
-    );
+  function filterCharacters(object){
+    if(object.name){
+      setCharacters(
+        characters.filter(character=>character.name.includes(object.name))
+      );
+    }
+    setCharacters(characters.filter(character => character.status==object.status_select));
   };
 
   if(!characters){
