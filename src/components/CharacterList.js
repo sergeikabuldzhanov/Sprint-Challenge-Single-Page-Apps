@@ -31,7 +31,9 @@ export default function CharacterList() {
         characters.filter(character=>character.name.includes(object.name))
       );
     }
-    setCharacters(characters.filter(character => character.status==object.status_select));
+    if(object.status_select){
+      setCharacters(characters.filter(character => character.status==object.status_select));
+    }
   };
 
   if(!characters){
